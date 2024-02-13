@@ -1,3 +1,7 @@
+/**
+ *
+ * アプリケーションのタイポグラフィ（フォントなど）を定義する
+ */
 package com.example.wearos.presentation.theme
 
 import androidx.compose.ui.text.TextStyle

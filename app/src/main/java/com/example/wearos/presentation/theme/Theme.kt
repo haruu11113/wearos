@@ -1,3 +1,7 @@
+/**
+ *
+ * アプリケーションのテーマを定義する Kotlin ファイルです。
+ */
 package com.example.wearos.presentation.theme
 
 import androidx.compose.runtime.Composable

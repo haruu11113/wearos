@@ -50,7 +50,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.core.ktx)
     implementation(libs.play.services.wearable)
     implementation(libs.percentlayout)
@@ -72,4 +71,5 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+    implementation("androidx.health:health-services-client:1.0.0-beta02")
 }

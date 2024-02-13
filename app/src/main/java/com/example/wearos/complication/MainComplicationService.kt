@@ -1,3 +1,7 @@
+/**
+ * MainComplicationService.kt: Wear OS のコンプリケーション（ウォッチフェイスに表示される小さな情報ウィジェット）
+ * を提供するサービスを定義する Kotlin ファイルです。
+ */
 package com.example.wearos.complication
 
 import androidx.wear.watchface.complications.data.ComplicationData

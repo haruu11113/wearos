@@ -6,6 +6,9 @@
 
 package com.example.wearos.presentation
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,17 +23,33 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.example.wearos.R
 import com.example.wearos.presentation.theme.WearosTheme
+import com.example.wearos.sensor.AccelerometerSensorService
 
 class MainActivity : ComponentActivity() {
+    private val BODY_SENSORS_REQUEST_CODE = 1 // または他のユニークな整数値
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             WearApp("Android")
         }
+        // sensor service start
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.BODY_SENSORS)
+            != PackageManager.PERMISSION_GRANTED) {
+
+            // 実行時のパーミッション要求
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.BODY_SENSORS),
+                BODY_SENSORS_REQUEST_CODE)
+        }
+        val serviceIntent = Intent(this, AccelerometerSensorService::class.java)
+        startService(serviceIntent)
     }
 }
 

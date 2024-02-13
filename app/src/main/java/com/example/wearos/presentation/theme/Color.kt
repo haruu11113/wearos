@@ -1,3 +1,7 @@
+/**
+ *
+ * Color.kt: アプリケーションのカラーリソースを定義
+  */
 package com.example.wearos.presentation.theme
 
 import androidx.compose.ui.graphics.Color

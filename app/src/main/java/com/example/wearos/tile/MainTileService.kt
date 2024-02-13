@@ -1,3 +1,6 @@
+/**
+ * Wear OS のタイル（ユーザーがスワイプでアクセスできるカスタム画面）を提供するサービスを定義
+ */
 package com.example.wearos.tile
 
 import android.content.Context
@@ -44,6 +47,7 @@ class MainTileService : CoroutinesTileService() {
     }
 }
 
+
 private fun tileLayout(context: Context): LayoutElementBuilders.LayoutElement {
     return PrimaryLayout.Builder(buildDeviceParameters(context.resources))
         .setContent(
@@ -53,12 +57,15 @@ private fun tileLayout(context: Context): LayoutElementBuilders.LayoutElement {
         ).build()
 }
 
+
 @Preview(
     device = Devices.WEAR_OS_SMALL_ROUND,
     showSystemUi = true,
     backgroundColor = 0xff000000,
     showBackground = true
 )
+
+
 @Composable
 fun TilePreview() {
     LayoutRootPreview(root = tileLayout(LocalContext.current))
