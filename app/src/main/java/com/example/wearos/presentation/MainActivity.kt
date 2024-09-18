@@ -30,6 +30,7 @@ import androidx.wear.compose.material.Text
 import com.example.wearos.R
 import com.example.wearos.presentation.theme.WearosTheme
 import com.example.wearos.sensor.AccelerometerSensorService
+import com.example.wearos.sensor.LightSensorService
 
 class MainActivity : ComponentActivity() {
     private val BODY_SENSORS_REQUEST_CODE = 1 // または他のユニークな整数値
@@ -48,8 +49,10 @@ class MainActivity : ComponentActivity() {
                 arrayOf(Manifest.permission.BODY_SENSORS),
                 BODY_SENSORS_REQUEST_CODE)
         }
-        val serviceIntent = Intent(this, AccelerometerSensorService::class.java)
-        startService(serviceIntent)
+        var intent: Intent = Intent(this, AccelerometerSensorService::class.java)
+        startService(intent)
+//        var intentLight: Intent = Intent(this, LightSensorService::class.java)
+//        startService(intentLight)
     }
 }
 

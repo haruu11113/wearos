@@ -7,9 +7,10 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.util.Log
+import com.example.wearos.network.UdpSender
 import java.io.File
 import java.io.FileWriter
+import android.util.Log
 
 
 open class BaseSensorService : Service(), SensorEventListener {
@@ -26,15 +27,20 @@ open class BaseSensorService : Service(), SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent) {
-        val csvString = "${event.timestamp},${event.values.joinToString(",")}\n"
-        Log.d("SensorService", "$sensor csvString : $csvString")
-//        var udp: UdpSender = UdpSender()
-//        Thread {
-//            udp.sendUDPMessage("message", "192.168.50.234", 6666)
-//        }.start()
-//        Log.d("SensorService", "aaaaaaaaaa")
+        Log.i("BaseSensorService", "onSensorChanged started")
+        val csvString: String = this.formatMessage(event)
+        Log.i("BaseSensorService", "onSensorChanged 2")
+        var udp: UdpSender = UdpSender("192.168.179.13", 6666)
+        Thread {
+            udp.sendUDPMessage("$csvString")
+        }.start()
+        Log.i("BaseSensorService", "onSensorChanged done")
+//        saveToCSV(csvString)
+    }
 
-        saveToCSV(csvString)
+    open fun formatMessage(event: SensorEvent): String {
+        var message: String = "${event.timestamp}, ${event.values.joinToString(",")}\n"
+        return message
     }
 
     override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
