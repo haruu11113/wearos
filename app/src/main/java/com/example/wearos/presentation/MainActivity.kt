@@ -30,7 +30,9 @@ import androidx.wear.compose.material.Text
 import com.example.wearos.R
 import com.example.wearos.presentation.theme.WearosTheme
 import com.example.wearos.sensor.AccelerometerSensorService
+import com.example.wearos.sensor.HeatBeatSensorService
 import com.example.wearos.sensor.LightSensorService
+
 
 class MainActivity : ComponentActivity() {
     private val BODY_SENSORS_REQUEST_CODE = 1 // または他のユニークな整数値
@@ -43,16 +45,19 @@ class MainActivity : ComponentActivity() {
         // sensor service start
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.BODY_SENSORS)
             != PackageManager.PERMISSION_GRANTED) {
-
             // 実行時のパーミッション要求
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(
+                this,
                 arrayOf(Manifest.permission.BODY_SENSORS),
-                BODY_SENSORS_REQUEST_CODE)
+                BODY_SENSORS_REQUEST_CODE
+            )
         }
-        var intent: Intent = Intent(this, AccelerometerSensorService::class.java)
-        startService(intent)
-//        var intentLight: Intent = Intent(this, LightSensorService::class.java)
-//        startService(intentLight)
+
+        startService(Intent(this, AccelerometerSensorService::class.java))
+        startService(Intent(this, HeatBeatSensorService::class.java))
+//        startService(Intent(this, HeartRateSensorService::class.java))
+        startService(Intent(this, LightSensorService::class.java))
+//        startService(Intent(this, EDASensorService::class.java))
     }
 }
 

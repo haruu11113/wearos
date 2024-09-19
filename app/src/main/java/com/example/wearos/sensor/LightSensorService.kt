@@ -13,13 +13,18 @@ class LightSensorService : BaseSensorService() {
     override fun onCreate() {
         super.onCreate()
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        // sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ALL)
-        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+        this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
+//        this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ALL)
+        if (this.sensor != null) {
+            sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+            // 新しいgetSystemServiceの使用方法
+        } else {
+            Log.e("AccelerometerSensorService", "The sensor not available.")
+        }
     }
 
     override fun formatMessage(event: SensorEvent): String {
-        var message: String = "${event.timestamp}, all, ${event.values.joinToString(",")}\n"
+        var message: String = "${event.timestamp}, light, ${event.values.joinToString(",")}\n"
         Log.i("SensorService", "LightSensorService: $sensor")
         return message
     }

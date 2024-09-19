@@ -8,22 +8,24 @@ import android.hardware.SensorEventListener
 import android.util.Log
 
 
-class AccelerometerSensorService : BaseSensorService () {
+class HeartRateSensorService : BaseSensorService () {
     override fun onCreate() {
         super.onCreate()
-        Log.i("AccelerometerSensorService", "created")
+        Log.i("HeartRateSensorService", "created")
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_BEAT)
+
         if (this.sensor != null) {
             sensorManager.registerListener(this, this.sensor, SensorManager.SENSOR_DELAY_NORMAL)
-            Log.i("AccelerometerSensorService", "Sensor: $sensor")
+            Log.i("HeartRateSensorService", "Sensor: $sensor")
+            // 新しいgetSystemServiceの使用方法
         } else {
-            Log.e("AccelerometerSensorService", "The sensor not available.")
+            Log.e("HeartRateSensorService", "The sensor not available.")
         }
     }
 
     override fun formatMessage(event: SensorEvent): String {
-        var message: String = "${event.timestamp}, acc, ${event.values.joinToString(",")}\n"
+        var message: String = "${event.timestamp}, HeartRate, ${event.values.joinToString(",")}\n"
         return message
     }
 }

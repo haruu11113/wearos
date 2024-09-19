@@ -15,7 +15,7 @@ import android.util.Log
 
 open class BaseSensorService : Service(), SensorEventListener {
     public lateinit var sensorManager: SensorManager
-    public lateinit var sensor: Sensor
+    public var sensor: Sensor? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -27,15 +27,13 @@ open class BaseSensorService : Service(), SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent) {
-        Log.i("BaseSensorService", "onSensorChanged started")
         val csvString: String = this.formatMessage(event)
-        Log.i("BaseSensorService", "onSensorChanged 2")
-        var udp: UdpSender = UdpSender("192.168.179.13", 6666)
+        // var udp: UdpSender = UdpSender("192.168.179.13", 6666)
+        var udp: UdpSender = UdpSender("192.0.0.2", 6666)
         Thread {
-            udp.sendUDPMessage("$csvString")
+            udp.sendUDPMessage("${csvString}")
         }.start()
-        Log.i("BaseSensorService", "onSensorChanged done")
-//        saveToCSV(csvString)
+        // saveToCSV(csvString)
     }
 
     open fun formatMessage(event: SensorEvent): String {
