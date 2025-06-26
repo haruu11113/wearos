@@ -23,7 +23,7 @@ class AccelerometerSensorService : BaseSensorService () {
     }
 
     override fun formatMessage(event: SensorEvent): String {
-        var message: String = "${event.timestamp}, acc, ${event.values.joinToString(",")}\n"
+        var message: String = "acc, ${event.values.joinToString(",")}, ${event.timestamp}\n"
         return message
     }
 }

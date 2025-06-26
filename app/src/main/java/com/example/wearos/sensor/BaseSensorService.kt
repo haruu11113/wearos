@@ -29,7 +29,7 @@ open class BaseSensorService : Service(), SensorEventListener {
     override fun onSensorChanged(event: SensorEvent) {
         val csvString: String = this.formatMessage(event)
         // var udp: UdpSender = UdpSender("192.168.179.13", 6666)
-        var udp: UdpSender = UdpSender("192.0.0.2", 6666)
+        var udp: UdpSender = UdpSender("192.168.50.78", 6666)
         Thread {
             udp.sendUDPMessage("${csvString}")
         }.start()
