@@ -13,19 +13,17 @@ class HeartRateSensorService : BaseSensorService () {
         super.onCreate()
         Log.i("HeartRateSensorService", "created")
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_BEAT)
-
+        this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE)
         if (this.sensor != null) {
             sensorManager.registerListener(this, this.sensor, SensorManager.SENSOR_DELAY_NORMAL)
             Log.i("HeartRateSensorService", "Sensor: $sensor")
-            // 新しいgetSystemServiceの使用方法
         } else {
             Log.e("HeartRateSensorService", "The sensor not available.")
         }
     }
 
     override fun formatMessage(event: SensorEvent): String {
-        var message: String = "${event.timestamp}, HeartRate, ${event.values.joinToString(",")}\n"
+        var message: String = "heart_rate,${event.values.joinToString(",")},${event.timestamp}\n"
         return message
     }
 }
